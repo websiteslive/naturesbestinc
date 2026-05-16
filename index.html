@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nature's Best, Inc. | Missoula Valley Lawn Care & Landscaping</title>
+<meta name="description" content="Missoula company providing Landscape Design & Maintenance, Lawn Care, Organic Fertilizer and Weed Control.">
+<meta name="keywords" content="Lawn care, Landscaping, Missoula, Montana, Fertilizer, Weed Control, Irrigation, Snow Removal">
+
+<!-- Fonts & Icons -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<style>
+/* ===================== RESET & BASE ===================== */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Open Sans',sans-serif;color:#1a1e2e;background:#fff;line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{cursor:pointer;font-family:inherit;border:none;background:none}
+
+/* ===================== VARIABLES (NEW CALM BLUE PALETTE) ===================== */
+:root{
+  --primary: #2C65A6; /* Calmer, professional blue */
+  --primary-dark: #1A4373; /* Deep navy blue */
+  --accent: #A9CAEF; /* Soft light blue */
+  --accent-dark: #8BB5E3; /* Hover state for Light Blue */
+  --primary-light: #F0F6FC; /* Lightest Blue */
+  
+  --charcoal:#2C2C2C;
+  --charcoal-light:#444;
+  --body-dark:#1a1e2e;
+  --off-white:#f4f6f9;
+  --white:#fff;
+  --shadow-sm:0 2px 8px rgba(0,0,0,.08);
+  --shadow-md:0 6px 24px rgba(0,0,0,.12);
+  --shadow-lg:0 12px 48px rgba(0,0,0,.18);
+  --radius-sm:8px;
+  --radius-md:16px;
+  --radius-lg:24px;
+  --max:1200px;
+  --transition:0.28s cubic-bezier(.4,0,.2,1);
+}
+
+/* ===================== UTILITIES ===================== */
+.container{width:88%;max-width:var(--max);margin:0 auto}
+.sr-only{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ===================== TYPOGRAPHY ===================== */
+h1,h2,h3,h4,h5,h6{font-family:'Rubik',sans-serif;line-height:1.15;color:var(--primary)}
+.section-label{font-family:'Open Sans',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-dark);display:block;margin-bottom:.6rem}
+.section-title{font-family:'Rubik',sans-serif;font-size:clamp(1.8rem,3.5vw,2.75rem);font-weight:700;color:var(--primary);line-height:1.18}
+.section-title.white{color:#fff}
+
+/* ===================== BUTTONS ===================== */
+.btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8em 1.7em;border-radius:var(--radius-sm);font-family:'Rubik',sans-serif;font-weight:600;font-size:.95rem;text-transform:uppercase;letter-spacing:.04em;transition:background var(--transition),color var(--transition),transform var(--transition),box-shadow var(--transition);cursor:pointer}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark);box-shadow:var(--shadow-md)}
+.btn-secondary{background:var(--charcoal);color:#fff}
+.btn-secondary:hover{background:#000;box-shadow:var(--shadow-md)}
+.btn-outline{background:transparent;color:var(--primary-dark);border:2px solid var(--primary-dark)}
+.btn-outline:hover{background:var(--primary-dark);color:#fff}
+.btn-accent{background:var(--accent);color:var(--primary-dark)}
+.btn-accent:hover{background:var(--primary-dark);color:#fff;box-shadow:var(--shadow-md)}
+.btn-white{background:#fff;color:var(--primary)}
+.btn-white:hover{background:var(--off-white);box-shadow:var(--shadow-md)}
+.btn i{font-size:1.1em;flex-shrink:0}
+
+/* ===================== HEADER ===================== */
+.site-header{position:sticky;top:0;z-index:9000;background:#fff;box-shadow:0 3px 25px rgba(0,0,0,.1)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:.6rem 0}
+.logo-wrap{flex-shrink:0;display:flex;align-items:center;text-decoration:none}
+.brand-logo{height:60px;width:auto;object-fit:contain}
+nav.main-nav > ul{display:flex;align-items:center;gap:.15rem}
+nav.main-nav a{white-space:nowrap;font-family:'Rubik',sans-serif;font-weight:600;font-size:.88rem;color:var(--primary-dark);padding:.55rem .72rem;border-radius:var(--radius-sm);transition:color var(--transition),background var(--transition)}
+nav.main-nav a:hover{color:var(--primary);background:rgba(44,101,166,.08)}
+.nav-has-dropdown{position:relative}
+.nav-has-dropdown .dropdown{display:block;position:absolute;top:100%;left:0;background:#fff;min-width:220px;border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);padding:.5rem 0;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity var(--transition),transform var(--transition);z-index:200}
+.nav-has-dropdown:hover .dropdown{opacity:1;pointer-events:all;transform:none}
+.dropdown li a{display:block;padding:.6rem 1.2rem;font-size:.88rem;font-weight:600;color:var(--primary-dark);border-radius:0;transition:background var(--transition),color var(--transition)}
+.dropdown li a:hover{background:var(--off-white);color:var(--primary)}
+.header-ctas{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+.burger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:44px;height:44px;padding:0;border-radius:var(--radius-sm);transition:background var(--transition)}
+.burger:hover{background:var(--off-white)}
+.burger span{display:block;width:26px;height:3px;background:var(--primary);border-radius:3px;transition:transform .3s,opacity .3s}
+
+/* ===================== HERO ===================== */
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:var(--primary-dark)}
+.hero-bg{position:absolute;inset:0;background:
+  linear-gradient(to bottom,rgba(44,101,166,.75) 0%,rgba(26,67,115,.95) 100%),
+  url('img/hero.jpg') center/cover no-repeat;
+}
+.hero-content{position:relative;z-index:2;padding:7rem 0 5rem}
+.hero-tag{display:inline-block;background:var(--accent);color:var(--primary-dark);font-family:'Rubik',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .9rem;border-radius:50px;margin-bottom:1.25rem}
+.hero h1{font-family:'Rubik',sans-serif;font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:800;color:#fff;line-height:1.06;margin-bottom:1rem;max-width:680px}
+.hero h1 em{color:var(--primary-light);font-style:normal}
+.hero-sub{color:rgba(255,255,255,.85);font-size:1.15rem;max-width:520px;margin-bottom:2rem;line-height:1.65}
+.hero-actions{display:flex;flex-wrap:wrap;gap:.85rem;margin-bottom:2.5rem}
+.hero-proof{display:flex;flex-wrap:wrap;gap:1rem}
+.proof-badge{display:flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-md);padding:.65rem 1rem}
+.proof-badge strong{color:#fff;font-family:'Rubik',sans-serif;font-size:1.05rem}
+.proof-badge span{color:rgba(255,255,255,.7);font-size:.82rem}
+
+/* Embedded Mountain Layering Effect */
+.hero-mountains{
+  position:absolute;
+  bottom:-1px; /* Avoid 1px rendering gap */
+  left:0;
+  right:0;
+  z-index:1;
+  line-height:0;
+  width:100%;
+  display: flex;
+  align-items: flex-end;
+  pointer-events: none;
+}
+.mountain-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  transform: scale(1.05) translateY(-5%);
+  /* Light blue filter to simulate var(--accent) */
+  filter: brightness(0) invert(85%) sepia(10%) saturate(800%) hue-rotate(185deg) brightness(100%) contrast(95%);
+  opacity: 0.85;
+  z-index: 1;
+}
+.mountain-fg {
+  position: relative; /* Sets the natural height of the container */
+  width: 100%;
+  /* Pure white filter */
+  z-index: 2;
+  margin-bottom: -1px;
+}
+
+/* ===================== QUICK LINKS ===================== */
+.quick-links{padding:5rem 0 3rem; background: #fff;}
+.ql-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:var(--max);margin:0 auto;padding-top:2.5rem}
+.ql-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.25rem;padding:3.5rem 2.5rem 2.5rem;border-radius:var(--radius-md);box-shadow:var(--shadow-md);position:relative;margin-top:1.5rem;transition:transform var(--transition),box-shadow var(--transition)}
+.ql-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.ql-card:nth-child(1),.ql-card:nth-child(3){background:#fff}
+.ql-card:nth-child(2){background:linear-gradient(145deg,#0f2a4a 0%,var(--primary-dark) 40%,var(--primary) 100%);color:#fff;box-shadow:0 8px 32px rgba(15,42,74,.45)}
+.ql-icon{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:2}
+.ql-card:nth-child(1) .ql-icon,.ql-card:nth-child(3) .ql-icon{background:var(--primary);box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.ql-card:nth-child(2) .ql-icon{background:var(--charcoal);border:6px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,0.15)}
+.ql-icon i{font-size:32px;color:#fff}
+.ql-card h3{font-size:1.8rem;font-weight:800;line-height:1.2}
+.ql-card:nth-child(1) h3,.ql-card:nth-child(3) h3{color:var(--primary)}
+.ql-card:nth-child(2) h3{color:#fff}
+.ql-card p{font-size:.95rem;color:var(--charcoal-light);line-height:1.6;margin:0}
+.ql-card:nth-child(2) p{color:rgba(255,255,255,.9)}
+.ql-link{font-family:'Rubik',sans-serif;font-size:1.05rem;font-weight:700;display:inline-flex;align-items:center;gap:.5rem;margin-top:auto}
+.ql-card:nth-child(1) .ql-link,.ql-card:nth-child(3) .ql-link{color:var(--primary)}
+.ql-card:nth-child(2) .ql-link{color:#fff}
+.ql-link i{font-size:12px;transition:transform var(--transition)}
+.ql-card:hover .ql-link i{transform:translateX(5px)}
+
+/* ===================== SECTIONS SHARED ===================== */
+section{padding:5.5rem 0}
+.section-header{text-align:center;margin-bottom:3.5rem}
+.section-header p{max-width:580px;margin:.8rem auto 0;color:var(--charcoal-light);font-size:1rem}
+
+/* ===================== SERVICES ===================== */
+.services{background:var(--off-white);position:relative}
+.services::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232C65A6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;position:relative}
+.service-card{background:#fff;border-radius:var(--radius-md);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition);display:flex;flex-direction:column;position:relative}
+.service-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
+.service-card-img{height:195px;overflow:hidden;position:relative}
+.service-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,67,115,.8) 0%,transparent 55%)}
+.service-card-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.service-card:hover .service-card-img img{transform:scale(1.06)}
+.service-card-img-placeholder{height:195px;display:flex;align-items:center;justify-content:center;position:relative}
+.service-card-img-placeholder::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(26,67,115,.7) 0%,transparent 55%)}
+.service-card-img-placeholder i{font-size:72px;color:rgba(255,255,255,.15);position:relative;z-index:0}
+.service-card-body{padding:1.4rem 1.4rem 1.5rem;flex:1;display:flex;flex-direction:column}
+.service-icon{width:44px;height:44px;background:var(--primary);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-top:-2.8rem;margin-bottom:.85rem;position:relative;z-index:1;border:4px solid #fff}
+.service-icon i{color:#fff;font-size:20px}
+.service-card h3{font-size:1.1rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
+.service-card p{font-size:.88rem;color:var(--charcoal-light);line-height:1.55;flex:1}
+.service-learn{display:inline-flex;align-items:center;gap:.4rem;font-family:'Rubik',sans-serif;font-size:.85rem;font-weight:700;color:var(--primary-dark);margin-top:.9rem;transition:gap var(--transition)}
+.service-learn:hover{gap:.65rem}
+
+/* ===================== ABOUT ===================== */
+.about{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-wrap img{border-radius:var(--radius-lg);width:100%;object-fit:cover;aspect-ratio:4/3}
+.about-badge{position:absolute;bottom:-1.5rem;left:2rem;background:var(--primary);color:#fff;border-radius:var(--radius-md);padding:1rem 1.4rem;display:flex;align-items:center;gap:.9rem;box-shadow:var(--shadow-lg)}
+.about-badge .badge-num{font-family:'Rubik',sans-serif;font-size:2.1rem;font-weight:800;line-height:1}
+.about-badge .badge-txt{font-size:.82rem;line-height:1.35;opacity:.9}
+.about-text .section-label{margin-bottom:.4rem}
+.about-text .section-title{margin-bottom:1rem}
+.about-text p{color:var(--charcoal-light);margin-bottom:1rem;font-size:1rem}
+.about-features{display:flex;flex-direction:column;gap:.75rem;margin:1.4rem 0 2rem}
+.about-feat{display:flex;align-items:center;gap:.8rem}
+.feat-icon{width:36px;height:36px;background:var(--primary-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.feat-icon i{color:var(--primary-dark);font-size:15px}
+.about-feat span{font-weight:600;font-size:.95rem}
+.about-ctas{display:flex;flex-wrap:wrap;gap:.75rem}
+
+/* ===================== COMMITMENT ===================== */
+.guarantees{background:var(--primary);position:relative;overflow:hidden}
+.guarantees::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cpath d='M150 0 L300 150 L150 300 L0 150 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='2'/%3E%3Ccircle cx='150' cy='150' r='100' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='2'/%3E%3C/svg%3E") center/cover}
+.guarantees .section-title{color:#fff;text-align:center;margin-bottom:.5rem}
+.guarantees .section-label{text-align:center; color: var(--accent);}
+.guarantees .section-header p{color:rgba(255,255,255,.75)}
+.guarantee-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
+.guarantee-card{border-radius:var(--radius-md);padding:2.4rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px);display:flex;flex-direction:column;gap:1rem;transition:background var(--transition),border-color var(--transition),transform var(--transition)}
+.guarantee-card:first-child{background:linear-gradient(135deg,rgba(169,202,239,.3) 0%,rgba(44,101,166,.4) 100%);border-color:var(--accent)}
+.guarantee-card:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3);transform:translateY(-4px)}
+.guarantee-card:first-child:hover{background:linear-gradient(135deg,rgba(169,202,239,.45) 0%,rgba(44,101,166,.55) 100%);border-color:#fff}
+.guar-top{display:flex;align-items:center;gap:1rem}
+.guar-ico{width:56px;height:56px;background:var(--accent);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.guar-ico i{color:var(--primary-dark);font-size:24px}
+.guarantee-card h3{font-size:1.35rem;font-weight:700;color:#fff}
+.guarantee-card p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.6}
+
+/* ===================== WHY CHOOSE US ===================== */
+.why{background:var(--off-white)}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.why-card{background:#fff;border-radius:var(--radius-md);padding:2rem;box-shadow:var(--shadow-sm);transition:transform var(--transition),box-shadow var(--transition)}
+.why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md)}
+.why-ico{width:52px;height:52px;background:rgba(44,101,166,.1);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.why-ico i{color:var(--primary);font-size:22px}
+.why-card h3{font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
+.why-card p{font-size:.9rem;color:var(--charcoal-light);line-height:1.6}
+
+/* ===================== TESTIMONIALS ===================== */
+.testimonials{background:#fff}
+.testi-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
+.testi-rating{display:flex;align-items:center;gap:.75rem;background:var(--off-white);border-radius:var(--radius-md);padding:.8rem 1.2rem;box-shadow:var(--shadow-sm)}
+.testi-rating .stars{color:#f9c74f;font-size:1.1rem}
+.testi-rating strong{font-family:'Rubik',sans-serif;font-size:1.05rem;color:var(--primary)}
+.testi-rating span{color:var(--charcoal-light);font-size:.85rem}
+.testi-slider{position:relative;overflow:hidden}
+.testi-track{display:flex;gap:1.25rem;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.testi-slide{flex:0 0 calc(33.333% - .85rem);min-width:calc(33.333% - .85rem)}
+.review-card{background:var(--off-white);border-radius:var(--radius-md);padding:1.8rem;box-shadow:var(--shadow-sm);height:100%;display:flex;flex-direction:column;gap:.85rem}
+.review-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
+.reviewer{display:flex;align-items:center;gap:.75rem}
+.reviewer-avatar-placeholder{width:46px;height:46px;border-radius:50%;background:var(--primary);color:#fff;font-family:'Rubik',sans-serif;font-size:1.1rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.reviewer-name{font-family:'Rubik',sans-serif;font-weight:700;color:var(--primary-dark);font-size:1rem}
+.reviewer-time{font-size:.78rem;color:rgba(0,0,0,.45)}
+.review-stars{color:#f9c74f;font-size:.9rem}
+.review-source{font-family:'Rubik',sans-serif;font-size:.75rem;font-weight:700;color:var(--primary);background:rgba(44,101,166,.1);padding:.25rem .6rem;border-radius:20px;white-space:nowrap}
+.review-text{font-size:.92rem;color:var(--charcoal-light);line-height:1.65;flex:1}
+.testi-controls{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:2rem}
+.testi-dots{display:flex;gap:.45rem;align-items:center}
+.testi-dot{
+  width:10px;height:10px;border-radius:50%;
+  background:rgba(44,101,166,.22);
+  border:none;padding:0;cursor:pointer;
+  transition:background .35s cubic-bezier(.4,0,.2,1),
+             width .35s cubic-bezier(.4,0,.2,1),
+             border-radius .35s cubic-bezier(.4,0,.2,1);
+  flex-shrink:0;
+}
+.testi-dot.active{
+  background:var(--primary);
+  width:28px;
+  border-radius:5px;
+}
+
+/* ===================== LOCATE US AREA ===================== */
+.service-area-section{padding:6rem 0;background:var(--off-white);overflow:hidden}
+.sa-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.sa-map-wrap{position:relative;border-radius:var(--radius-md);overflow:hidden;height:500px;box-shadow:var(--shadow-md);background:#e5e3df}
+#serviceMap{width:100%;height:100%;z-index:1}
+.sa-content .section-label{color:var(--primary-dark);font-size:1rem;margin-bottom:.5rem}
+.sa-content .section-title{font-size:clamp(2rem,4vw,2.8rem);color:var(--primary);margin-bottom:1.5rem;line-height:1.15}
+.sa-content p{color:var(--charcoal-light);font-size:1.05rem;margin-bottom:2rem;line-height:1.6}
+.sa-btn{background:var(--primary);color:#fff;border-radius:var(--radius-sm);padding:1.2rem 2.2rem;font-size:1rem;letter-spacing:.05em;display:inline-flex;justify-content:center;align-items:center;width:auto;font-family:'Rubik',sans-serif;font-weight:700;text-transform:uppercase;transition:background var(--transition);border:none}
+.sa-btn:hover{background:var(--primary-dark)}
+
+/* Custom Leaflet Marker */
+.sa-marker{
+  width:36px;height:36px;
+  background:var(--primary);
+  border:3px solid #fff;
+  border-radius:50% 50% 50% 0;
+  transform:rotate(-45deg);
+  box-shadow:0 4px 12px rgba(44,101,166,.45);
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.sa-marker i{
+  color:#fff;font-size:14px;
+  transform:rotate(45deg);
+  margin-top:-2px;margin-left:1px;
+}
+.leaflet-tooltip.map-label{background:#fff;border:none;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:'Rubik',sans-serif;font-weight:700;color:var(--charcoal);padding:5px 12px;margin-top:15px;font-size:.85rem;transition:transform .2s}
+.leaflet-tooltip-bottom:before{display:none}
+
+/* ===================== CTA BANNER ===================== */
+.cta-banner{background:var(--primary);position:relative;overflow:hidden;padding:4rem 0}
+.cta-banner::before{content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.06)}
+.cta-banner::after{content:'';position:absolute;left:-60px;top:50%;transform:translateY(-50%);width:280px;height:280px;border-radius:50%;background:rgba(26,67,115,.15)}
+.cta-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.cta-text h2{font-family:'Rubik',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:#fff;line-height:1.18;margin-bottom:.5rem}
+.cta-text p{color:rgba(255,255,255,.85);font-size:1rem;max-width:480px}
+.cta-actions{display:flex;gap:.75rem;flex-wrap:wrap;flex-shrink:0}
+
+/* ===================== FOOTER ===================== */
+.footer{background:var(--primary-dark);padding:4.5rem 0 0}
+.footer-grid{display:grid;grid-template-columns:250px 1fr 1fr 200px;gap:3.5rem;padding-bottom:3.5rem}
+.footer-brand-name{font-family:'Rubik',sans-serif;font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:.75rem}
+.footer-brand p{color:rgba(255,255,255,.65);font-size:.88rem;line-height:1.6}
+.footer-col h4{font-family:'Rubik',sans-serif;font-size:1rem;font-weight:700;color:var(--accent);margin-bottom:1.1rem;letter-spacing:.03em}
+.footer-col ul li{margin-bottom:.6rem}
+.footer-col ul a{color:rgba(255,255,255,.7);font-size:.9rem;transition:color var(--transition)}
+.footer-col ul a:hover{color:var(--accent)}
+.footer-contact li{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.85rem;color:rgba(255,255,255,.75);font-size:.9rem}
+.footer-contact i{color:var(--accent);font-size:16px;flex-shrink:0;margin-top:.2rem}
+.footer-contact a{color:rgba(255,255,255,.75);transition:color var(--transition)}
+.footer-contact a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:1.4rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
+.footer-bottom p{color:rgba(255,255,255,.5);font-size:.82rem}
+
+/* ===================== MOBILE NAV ===================== */
+.mobile-nav{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s}
+.mobile-nav.open{opacity:1;pointer-events:all}
+.mobile-nav-panel{position:absolute;top:0;right:-100%;width:min(340px,90vw);height:100%;background:var(--primary-dark);color:#fff;overflow-y:auto;transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+.mobile-nav.open .mobile-nav-panel{right:0}
+.mobile-nav-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.mobile-brand-logo{height:40px;width:auto;filter:brightness(0) invert(1)}
+.mobile-nav-close{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;display:flex;align-items:center;justify-content:center;transition:background var(--transition),transform var(--transition);margin:0}
+.mobile-nav-close:hover{background:var(--accent);transform:scale(1.1)}
+.mobile-nav-links{padding:1rem 1.5rem 2rem;display:flex;flex-direction:column}
+.mobile-nav a{display:block;font-family:'Rubik',sans-serif;font-weight:600;color:rgba(255,255,255,.9);padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:1rem;transition:color var(--transition),padding-left var(--transition)}
+.mobile-nav a:hover{color:var(--accent);padding-left:8px}
+
+.mobile-nav-group { margin-bottom: 0.5rem; }
+.mobile-nav-label { display: block; font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--accent); padding: 1.2rem 0 0.2rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.mobile-nav-group a { padding: 0.6rem 0 0.6rem 1rem; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,.04); }
+
+.mobile-nav .mobile-ctas{margin-top:2rem;display:flex;flex-direction:column;gap:.8rem}
+.mobile-nav .mobile-ctas .btn{justify-content:center;text-align:center}
+
+/* ===================== RESPONSIVE ===================== */
+@media(max-width:1100px){
+  nav.main-nav,.header-ctas .btn-secondary{display:none}
+  .burger{display:flex}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+  .about-img-wrap{display:none}
+  .about-grid{grid-template-columns:1fr}
+}
+@media(max-width:900px){
+  .ql-grid{grid-template-columns:1fr;gap:3.5rem;padding-left:6%;padding-right:6%}
+  .guarantee-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-slide{flex:0 0 calc(50% - .65rem);min-width:calc(50% - .65rem)}
+  .cta-inner{flex-direction:column;text-align:center}
+  .cta-actions{justify-content:center}
+  .sa-grid{grid-template-columns:1fr;gap:2.5rem}
+  .sa-map-wrap{height:400px}
+}
+@media(max-width:600px){
+  .services-grid{grid-template-columns:1fr}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{justify-content:center}
+  .why-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .testi-slide{flex:0 0 100%;min-width:100%}
+  .footer-bottom{flex-direction:column;text-align:center}
+  section{padding:4rem 0}
+  .hero{min-height:auto}
+  .hero-content{padding:5rem 0 3.5rem}
+  .brand-logo{height:50px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="container">
+    <div class="header-inner">
+
+      <a class="logo-wrap" href="https://www.naturesbestinc.com">
+        <img src="img/logo.svg" alt="Nature's Best, Inc. Logo" class="brand-logo">
+      </a>
+
+      <!-- Navigation -->
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li class="nav-has-dropdown">
+            <a href="#">Lawn & Landscape ▾</a>
+            <ul class="dropdown">
+              <li><a href="https://www.naturesbestinc.com/landscape-maintenance">Landscape Maintenance</a></li>
+              <li><a href="https://www.naturesbestinc.com/tree-removal">Tree Removal</a></li>
+              <li><a href="https://www.naturesbestinc.com/fertilizer-and-weed-control">Fertilizer & Weed Control</a></li>
+              <li><a href="https://www.naturesbestinc.com/irrigation-sprinklers">Irrigation & Sprinklers</a></li>
+            </ul>
+          </li>
+          <li class="nav-has-dropdown">
+            <a href="#">Winter Services ▾</a>
+            <ul class="dropdown">
+              <li><a href="https://www.naturesbestinc.com/snow-ice-removal">Snow & Ice Control</a></li>
+              <li><a href="https://www.naturesbestinc.com/deicing-products-missoula">De-Icing Products</a></li>
+            </ul>
+          </li>
+          <li class="nav-has-dropdown">
+            <a href="#">About Us ▾</a>
+            <ul class="dropdown">
+              <li><a href="https://www.naturesbestinc.com/our-commitment">Our Commitment</a></li>
+              <li><a href="https://www.naturesbestinc.com/team">Careers</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="header-ctas">
+        <a href="tel:4065444754" class="btn btn-secondary">
+          <i class="fa-solid fa-phone"></i>
+          406-544-4754
+        </a>
+        <a href="mailto:lori@naturesbestinc.com" class="btn btn-primary">
+          <i class="fa-solid fa-envelope"></i>
+          Free Estimate
+        </a>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="mobile-nav-panel">
+    <div class="mobile-nav-header">
+      <img src="img/logo.svg" alt="Nature's Best, Inc. Logo" class="mobile-brand-logo">
+      <button class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
+    </div>
+    
+    <!-- Mobile Nav Groupings -->
+    <div class="mobile-nav-links">
+      <a href="https://www.naturesbestinc.com">Home</a>
+      
+      <div class="mobile-nav-group">
+        <span class="mobile-nav-label">Lawn & Landscape</span>
+        <a href="https://www.naturesbestinc.com/landscape-maintenance">Landscape Maintenance</a>
+        <a href="https://www.naturesbestinc.com/tree-removal">Tree Removal</a>
+        <a href="https://www.naturesbestinc.com/fertilizer-and-weed-control">Fertilizer & Weed Control</a>
+        <a href="https://www.naturesbestinc.com/irrigation-sprinklers">Irrigation & Sprinklers</a>
+      </div>
+      
+      <div class="mobile-nav-group">
+        <span class="mobile-nav-label">Winter Services</span>
+        <a href="https://www.naturesbestinc.com/snow-ice-removal">Snow & Ice Control</a>
+        <a href="https://www.naturesbestinc.com/deicing-products-missoula">De-Icing Products</a>
+      </div>
+      
+      <div class="mobile-nav-group">
+        <span class="mobile-nav-label">About Us</span>
+        <a href="https://www.naturesbestinc.com/our-commitment">Our Commitment</a>
+        <a href="https://www.naturesbestinc.com/team">Careers</a>
+      </div>
+
+      <div class="mobile-ctas">
+        <a href="tel:4065444754" class="btn btn-secondary"><i class="fa-solid fa-phone"></i> 406-544-4754</a>
+        <a href="mailto:lori@naturesbestinc.com" class="btn btn-primary">Get Free Estimate</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <span class="hero-tag">Missoula Valley's Most Trusted — Since 1995</span>
+      <h1>Your Lawn,<br>Our <em>Passion</em></h1>
+      <p class="hero-sub">Owner-operated lawn care and landscaping for Greater Missoula. From mowing and fertilizing to snow removal — we give the valley our best, every season.</p>
+      <div class="hero-actions">
+        <a href="mailto:lori@naturesbestinc.com" class="btn btn-primary" style="font-size:1.05rem;padding:.9em 2em">
+          <i class="fa-solid fa-circle-check"></i>
+          Get Free Estimate
+        </a>
+        <a href="tel:4065444754" class="btn btn-outline" style="font-size:1.05rem;padding:.9em 2em;color:#fff;border-color:#fff">
+          <i class="fa-solid fa-phone"></i>
+          Call 406-544-4754
+        </a>
+      </div>
+      <div class="hero-proof">
+        <div class="proof-badge">
+          <strong style="font-size:1.4rem">30+</strong>
+          <span>Years Serving<br>Missoula, MT</span>
+        </div>
+        <div class="proof-badge">
+          <strong>24</strong>
+          <span>Trucks &<br>Trailers</span>
+        </div>
+        <div class="proof-badge">
+          <strong>38</strong>
+          <span>Dedicated<br>Employees</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Layered Mountain Effect -->
+  <div class="hero-mountains">
+    <img src="Mountains.svg" alt="Foreground mountains" class="mountain-fg">
+  </div>
+</section>
+
+<!-- QUICK LINKS -->
+<div class="quick-links">
+  <div class="ql-grid">
+    <a href="mailto:lori@naturesbestinc.com" class="ql-card">
+      <div class="ql-icon">
+        <i class="fa-solid fa-file-invoice-dollar"></i>
+      </div>
+      <h3>Free<br>Estimates</h3>
+      <p>Call or email us today for a no-obligation free estimate. We serve both residential and commercial clients throughout the Missoula Valley.</p>
+      <span class="ql-link">Get Your Estimate <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+    <a href="https://www.naturesbestinc.com/deicing-products-missoula" class="ql-card">
+      <div class="ql-icon">
+        <i class="fa-solid fa-snowflake"></i>
+      </div>
+      <h3>Wholesale<br>De-Icing</h3>
+      <p>We manufacture our own brine in-house and offer bulk liquid and granular ice melt — 50 lb bags of calcium chloride at $23/bag, in stock now.</p>
+      <span class="ql-link">Shop De-Icing Products <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+    <a href="https://www.naturesbestinc.com/our-commitment" class="ql-card">
+      <div class="ql-icon">
+        <i class="fa-solid fa-handshake"></i>
+      </div>
+      <h3>Our<br>Commitment</h3>
+      <p>Licensed, insured, and proud members of the Missoula Chamber of Commerce since 1995. We return calls, show up on time, and do the job right.</p>
+      <span class="ql-link">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+    </a>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">What We Do</span>
+      <h2 class="section-title">Complete Lawn Care, Every Season</h2>
+      <p>From spring cleanups to winter plowing, our experienced crews keep your property looking its best year-round.</p>
+    </div>
+    <div class="services-grid">
+
+      <a href="https://www.naturesbestinc.com/landscape-maintenance" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Landscape Maintenance" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-scissors"></i></div>
+          <h3>Landscape Maintenance</h3>
+          <p>Mowing, trimming, edging, pruning, sweeping, power raking, and complete spring & fall cleanups for residential and commercial properties.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="https://www.naturesbestinc.com/tree-removal" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&q=80" alt="Tree Removal" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-tree"></i></div>
+          <h3>Tree Removal & Trimming</h3>
+          <p>ISA-certified arborists providing tree trimming, pruning, stump grinding, emergency services, health assessments, and land clearing.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="https://www.naturesbestinc.com/fertilizer-and-weed-control" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80" alt="Fertilizer and Weed Control" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-seedling"></i></div>
+          <h3>Fertilizer & Weed Control</h3>
+          <p>Affordable organic-based and eco-friendly lawn programs, aerations, overseeding, aphid treatments, and pest foundation spraying.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="https://www.naturesbestinc.com/irrigation-sprinklers" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&q=80" alt="Irrigation and Sprinklers" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-droplet"></i></div>
+          <h3>Irrigation & Sprinklers</h3>
+          <p>Rainbird-certified technicians for system design, installation, spring start-ups, fall blow-outs, backflow testing, and repair.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="https://www.naturesbestinc.com/snow-ice-removal" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1547754980-3df97fed72a8?w=600&q=80" alt="Snow Removal and Ice Control" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-snowflake"></i></div>
+          <h3>Snow Removal & Ice Control</h3>
+          <p>Full-service plowing, sanding, sidewalk clearing, and liquid/granular de-icing for businesses, condos, HOAs, and parking lots.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+      <a href="https://www.naturesbestinc.com/deicing-products-missoula" class="service-card reveal">
+        <div class="service-card-img">
+          <img src="img/1.avif" alt="Wholesale De-Icing Products" loading="lazy">
+        </div>
+        <div class="service-card-body">
+          <div class="service-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <h3>Wholesale De-Icing Products</h3>
+          <p>In-house manufactured sodium chloride brine plus 50 lb calcium chloride pellet bags — available individually or by the full pallet.</p>
+          <span class="service-learn">Learn More <i class="fa-solid fa-arrow-right"></i></span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal">
+        <img src="img/team.jpg" alt="Nature's Best crew at work" loading="lazy">
+        <div class="about-badge">
+          <div class="badge-num">1995</div>
+          <div class="badge-txt">Proudly Serving<br>Missoula Since</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <span class="section-label">Who We Are</span>
+        <h2 class="section-title">Owner-Operated, Missoula Born and Bred</h2>
+        <p>Craig Best founded Nature's Best in 1995 after moving to Missoula following 8.5 years in the US Air Force. Starting with a single truck and trailer, he built the company into a team of 38 employees operating 24 trucks across the Greater Missoula Valley.</p>
+        <p>We specialize in providing complete, all-season lawn care for both commercial and residential customers — and we give every property our absolute best.</p>
+        <div class="about-features">
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <span>Fully Licensed & Insured — In Business Since 1995</span>
+          </div>
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fa-solid fa-recycle"></i></div>
+            <span>We Compost All Clippings & Pruning Debris</span>
+          </div>
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fa-solid fa-certificate"></i></div>
+            <span>ISA Certified Arborist & Rainbird Certified Technicians</span>
+          </div>
+          <div class="about-feat">
+            <div class="feat-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <span>Missoula Chamber of Commerce Member Since 1995</span>
+          </div>
+        </div>
+        <div class="about-ctas">
+          <a href="https://www.naturesbestinc.com/our-commitment" class="btn btn-primary">Our Commitment</a>
+          <a href="tel:4065444754" class="btn btn-secondary">
+            <i class="fa-solid fa-phone"></i>
+            406-544-4754
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITMENT -->
+<section class="guarantees" id="commitment">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label" style="color:var(--accent)">Our Promise</span>
+      <h2 class="section-title white">Professional Service You Can Count On</h2>
+      <p style="color:rgba(255,255,255,.75)">We believe the place where we live is an important factor in how we conduct our business. Our mission: timely, consistent, and professional service.</p>
+    </div>
+    <div class="guarantee-grid">
+      <div class="guarantee-card reveal">
+        <div class="guar-top">
+          <div class="guar-ico">
+            <i class="fa-solid fa-phone-volume"></i>
+          </div>
+          <h3>We Return Your Calls</h3>
+        </div>
+        <p>Returning phone calls in a timely manner is rare in our industry — and we're proud of it. Supervisors carry cell phones in every truck, and Lori is available after hours until 9:00 PM at 406-544-4754.</p>
+      </div>
+      <div class="guarantee-card reveal">
+        <div class="guar-top">
+          <div class="guar-ico">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <h3>High Employee Retention</h3>
+        </div>
+        <p>We invest in our workforce with safety training, proper equipment, and competitive pay. Our high retention rate means you get familiar, consistent crews that know your property and care about quality.</p>
+      </div>
+      <div class="guarantee-card reveal">
+        <div class="guar-top">
+          <div class="guar-ico">
+            <i class="fa-solid fa-leaf"></i>
+          </div>
+          <h3>Eco-Friendly Practices</h3>
+        </div>
+        <p>We use Walker mowers for exceptional cut quality, compost all grass clippings and pruning debris, and offer organic-based fertilizer programs with EPA-registered products — no known carcinogens or groundwater risks.</p>
+      </div>
+      <div class="guarantee-card reveal">
+        <div class="guar-top">
+          <div class="guar-ico">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <h3>Community First</h3>
+        </div>
+        <p>Nature's Best donates to several local non-profit organizations and has been a proud Missoula Chamber member since 1995. Owner Craig Best served as an affiliate board member for NARPM and remains actively involved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">Why Nature's Best</span>
+      <h2 class="section-title">What Sets Us Apart</h2>
+      <p>30 years of expertise, a fleet of 24 trucks, and 38 dedicated professionals — all committed to giving Missoula Valley our best.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-calendar-check"></i></div>
+        <h3>All-Season Service, Every Year</h3>
+        <p>From spring cleanups and summer mowing to fall aerations and winter plowing, we manage your property 365 days a year with crews that know your needs.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-building"></i></div>
+        <h3>Commercial & Residential Experts</h3>
+        <p>We serve everything from small apartment lots to massive business parking lots, HOA roads, and large commercial landscapes — with the fleet to back it up.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-star"></i></div>
+        <h3>Certified Professionals</h3>
+        <p>ISA Certified Arborists for tree work and Rainbird Academy-certified irrigation specialists — backed by decades of hands-on experience in Missoula's unique climate and soils.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-flask"></i></div>
+        <h3>Organic-Based Lawn Programs</h3>
+        <p>Our Fabu-Lawn fertilizer program from Lakeland Feed & Supply promotes healthy roots, reduces water use, and builds disease resistance — all with EPA-registered, eco-friendly products.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-truck"></i></div>
+        <h3>24 Trucks, Ready When You Need Us</h3>
+        <p>When a storm hits overnight, our licensed and insured crews are out in the early morning hours — ensuring your lot, driveway, and sidewalks are clear before business hours.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-ico"><i class="fa-solid fa-tag"></i></div>
+        <h3>Free Estimates, Always</h3>
+        <p>We offer free estimates on every service, from lawn care programs to irrigation installation and snow removal contracts. Just call — and we'll get back to you fast.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="reviews">
+  <div class="container">
+    <div class="testi-header reveal">
+      <div>
+        <span class="section-label">Testimonials</span>
+        <h2 class="section-title">Trusted by Missoula Valley Since 1995</h2>
+      </div>
+      <a href="https://maps.google.com/?cid=7287931220569103734" target="_blank" rel="noopener" class="testi-rating">
+        <div class="stars">★★★★★</div>
+        <div>
+          <strong>Highly Rated on Google</strong><br>
+          <span>View our reviews</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="testi-slider reveal" id="testi-slider">
+      <div class="testi-track" id="testi-track">
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">D</div>
+                <div><div class="reviewer-name">Deanna Broere</div><div class="reviewer-time">10 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Very pleased with the service I received from Andy at Natures Best. He is very knowledgeable in sprinkler systems. He explained everything well in what is going on with my sprinkler system. He did an amazing job fixing the issues I was having. I would definitely use again. Thanks Andy!!</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">K</div>
+                <div><div class="reviewer-name">Kim Kahle</div><div class="reviewer-time">Local Guide · a year ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Very happy with Nature's Best service. I believe this is our 3rd year of using this company. Jerad does a great job and explains everything very well. Office staff very helpful and responds quickly. Highly recommend.</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">J</div>
+                <div><div class="reviewer-name">Jaclyn Wunsch</div><div class="reviewer-time">Local Guide · 11 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">I'm so happy with the work that you do for orchard gardens. Rosza is just amazing — she goes out of her way to help and make my garden better. I love that she communicates with us and lets the other workers know that some of us have gardens and plants in front of our apartments. She is a great asset to your company.</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">T</div>
+                <div><div class="reviewer-name">Tina Dockter</div><div class="reviewer-time">11 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Jerad came out to spray and decided it was best not to spray due to the rain. He kept in touch and came out the following week. Nature's Best provides great services. The Cemetery looks amazing! Thank you Jerad for taking pride in your work.</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">C</div>
+                <div><div class="reviewer-name">Chris Nolin</div><div class="reviewer-time">10 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">These guys are so good. Andy came out, short notice, to diagnose a problem I was having with our sprinkler system. It just wasn't working. It was fascinating to watch him troubleshoot the issue. Within 45 minutes, he figured it out and my system works again! Thank you!</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">T</div>
+                <div><div class="reviewer-name">TeeJay</div><div class="reviewer-time">11 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Andy came out and helped us get our sprinklers going for the season and was very knowledgeable on our system and took the time to answer all my questions and explain the programming/timers. GlenGarra Apartments now has a green lawn! Thanks again!</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">C</div>
+                <div><div class="reviewer-name">C.</div><div class="reviewer-time">7 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Allen with Natures Best went above and beyond coming back the day after to make sure there were no more leaks. Lori was super helpful as well and made scheduling super easy and hassle free.</p>
+          </div>
+        </div>
+
+        <div class="testi-slide">
+          <div class="review-card">
+            <div class="review-top">
+              <div class="reviewer">
+                <div class="reviewer-avatar-placeholder">G</div>
+                <div><div class="reviewer-name">Gary Clatterbuck</div><div class="reviewer-time">8 months ago</div></div>
+              </div>
+              <span class="review-source">Google Review</span>
+            </div>
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">Nate and Joshua are excellent and exceeded my expectations. They are efficient, friendly and took the time to answer my questions. I highly recommend Nature's Best for yard projects and maintenance. Excellent work.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="testi-controls">
+      <div class="testi-dots" id="testi-dots"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LOCATE US AREA -->
+<section class="service-area-section reveal" id="service-area">
+  <div class="container">
+    <div class="sa-grid">
+
+      <div class="sa-map-wrap">
+        <div id="serviceMap"></div>
+      </div>
+
+      <div class="sa-content">
+        <span class="section-label">Locate Us</span>
+        <h2 class="section-title">Our Headquarters</h2>
+        <p>We are centrally located to provide prompt year-round lawn care, landscaping, and snow removal services to the Missoula Valley.</p>
+
+        <div style="margin-bottom: 2.5rem; background: #fff; padding: 1.5rem; border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);">
+          <h3 style="font-family: 'Rubik', sans-serif; font-size: 1.2rem; color: var(--primary-dark); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-location-dot" style="color: var(--primary);"></i> Nature's Best, Inc.
+          </h3>
+          <p style="margin: 0; color: var(--charcoal-light); margin-left: 1.7rem;">
+            1175 Clark Fork Dr<br>
+            Missoula, MT 59808
+          </p>
+        </div>
+
+        <a href="https://www.google.com/maps/place/Nature's+Best,+Inc./@46.8584955,-114.0336491,14z/data=!4m10!1m2!2m1!1slandscaping!3m6!1s0x535dce7d6e12bc79:0x6523eed4fd801d76!8m2!3d46.8809612!4d-114.0406729!15sCgtsYW5kc2NhcGluZ1oNIgtsYW5kc2NhcGluZ5IBEWxhd25fY2FyZV9zZXJ2aWNlmgEjQ2haRFNVaE5NRzluUzBWSlEwRm5TVU0xTmsxNlprUm5FQUXgAQD6AQUIgwEQRg!16s%2Fg%2F1tr9n2jp?entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="sa-btn">
+          <i class="fa-solid fa-map-location-dot" style="margin-right:0.6rem"></i> Open in Google Maps
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-inner">
+      <div class="cta-text reveal">
+        <h2>Ready for a Better-Looking Property?</h2>
+        <p>Get a <strong>Free Estimate</strong> from Missoula Valley's most trusted lawn care and landscaping team. Call or email us today!</p>
+      </div>
+      <div class="cta-actions reveal">
+        <a href="mailto:lori@naturesbestinc.com" class="btn btn-white">
+          <i class="fa-solid fa-envelope"></i>
+          Get Free Estimate
+        </a>
+        <a href="tel:4065444754" class="btn" style="background:rgba(255,255,255,.2);color:#fff;border:2px solid rgba(255,255,255,.6)">
+          <i class="fa-solid fa-phone"></i>
+          406-544-4754
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Nature's Best, Inc.</div>
+        <p>Missoula Valley's professional lawn care and landscaping service. Owner-operated and community-focused since 1995.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="https://www.naturesbestinc.com/landscape-maintenance">Landscape Maintenance</a></li>
+          <li><a href="https://www.naturesbestinc.com/tree-removal">Tree Removal</a></li>
+          <li><a href="https://www.naturesbestinc.com/fertilizer-and-weed-control">Fertilizer & Weed Control</a></li>
+          <li><a href="https://www.naturesbestinc.com/irrigation-sprinklers">Irrigation & Sprinklers</a></li>
+          <li><a href="https://www.naturesbestinc.com/snow-ice-removal">Snow Removal & Ice Control</a></li>
+          <li><a href="https://www.naturesbestinc.com/deicing-products-missoula">De-Icing Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="https://www.naturesbestinc.com/our-commitment">Our Commitment</a></li>
+          <li><a href="https://www.naturesbestinc.com/team">Meet the Team</a></li>
+          <li><a href="https://www.naturesbestinc.com/job-application">Apply for a Job</a></li>
+          <li><a href="https://www.facebook.com/Natures-Best-Inc-349237101877235/" target="_blank" rel="noopener">Facebook</a></li>
+          <li><a href="https://maps.google.com/?cid=7287931220569103734" target="_blank" rel="noopener">Google Maps</a></li>
+        </ul>
+      </div>
+      <div class="footer-col footer-contact">
+        <h4>Contact</h4>
+        <ul>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:4065444754">406-544-4754</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:4065491196">406-549-1196</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:lori@naturesbestinc.com">lori@naturesbestinc.com</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-location-dot"></i>
+            <span>1175 Clark Fork Dr, Missoula, MT 59808</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Nature's Best, Inc. All rights reserved.</p>
+      <p style="color:rgba(255,255,255,.4)">Serving Missoula, Lolo, Florence, Hamilton, Stevensville & the Bitterroot Valley</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ===================== SCROLL REVEAL =====================
+const reveals = document.querySelectorAll('.reveal');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => revealObs.observe(el));
+
+// ===================== MOBILE NAV =====================
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+const mobileNavClose = document.getElementById('mobile-nav-close');
+
+function openNav() {
+  mobileNav.classList.add('open');
+  burger.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+function closeNav() {
+  mobileNav.classList.remove('open');
+  burger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+burger.addEventListener('click', openNav);
+mobileNavClose.addEventListener('click', closeNav);
+mobileNav.addEventListener('click', e => { if(e.target === mobileNav) closeNav(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeNav(); });
+
+// ===================== TESTIMONIALS SLIDER =====================
+const track = document.getElementById('testi-track');
+const dotsContainer = document.getElementById('testi-dots');
+const slides = document.querySelectorAll('.testi-slide');
+
+let current = 0;
+let perView = 3;
+let autoplayTimer;
+
+function getPerView() {
+  if(window.innerWidth <= 600) return 1;
+  if(window.innerWidth <= 900) return 2;
+  return 3;
+}
+
+function totalPages() { return Math.ceil(slides.length / perView); }
+
+function buildDots() {
+  dotsContainer.innerHTML = '';
+  for(let i = 0; i < totalPages(); i++) {
+    const dot = document.createElement('button');
+    dot.className = 'testi-dot' + (i === current ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide group ' + (i + 1));
+    dot.addEventListener('click', () => jumpToPage(i));
+    dotsContainer.appendChild(dot);
+  }
+}
+
+function goTo(page) {
+  current = Math.max(0, Math.min(page, totalPages() - 1));
+  const slideWidth = slides[0].offsetWidth + 20;
+  track.style.transform = 'translateX(-' + (current * perView * slideWidth) + 'px)';
+  dotsContainer.querySelectorAll('.testi-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+}
+
+// jumpToPage resets the autoplay so a manual pick never gets immediately overridden
+function jumpToPage(page) {
+  goTo(page);
+  resetAutoplay();
+}
+
+function next() { goTo(current + 1 >= totalPages() ? 0 : current + 1); }
+
+function startAutoplay() { autoplayTimer = setInterval(next, 4500); }
+function clearAutoplay() { clearInterval(autoplayTimer); }
+function resetAutoplay() { clearAutoplay(); startAutoplay(); }
+
+function init() {
+  perView = getPerView();
+  current = 0;
+  buildDots();
+  goTo(0);
+}
+
+window.addEventListener('resize', () => {
+  clearAutoplay();
+  init();
+  startAutoplay();
+});
+
+// Swipe support — resets timer on swipe
+let touchStartX = 0;
+track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+track.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if(Math.abs(dx) > 50) {
+    dx < 0 ? next() : goTo(current - 1 < 0 ? totalPages() - 1 : current - 1);
+    resetAutoplay();
+  }
+}, {passive:true});
+
+init();
+startAutoplay();
+
+// ===================== LEAFLET MAP INIT =====================
+document.addEventListener('DOMContentLoaded', function() {
+    if(document.getElementById('serviceMap')) {
+        // Initialize Map to single location
+        const map = L.map('serviceMap', {
+            center: [46.8584955, -114.0336491],
+            zoom: 14,
+            scrollWheelZoom: false,
+            zoomControl: false,
+            dragging: !L.Browser.mobile
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        const customIcon = L.divIcon({
+            className: 'bg-transparent',
+            html: '<div class="sa-marker"><i class="fa-solid fa-location-dot"></i></div>',
+            iconSize: [36, 36],
+            iconAnchor: [18, 36]
+        });
+
+        // Add singular point marker based on provided coordinates
+        const marker = L.marker([46.8584955, -114.0336491], {icon: customIcon}).addTo(map);
+        marker.bindTooltip("Nature's Best, Inc.", {
+            permanent: true,
+            direction: 'bottom',
+            className: 'map-label',
+            offset: [0, 0]
+        });
+    }
+});
+</script>
+</body>
+</html>
