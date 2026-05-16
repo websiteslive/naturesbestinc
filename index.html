@@ -3,18 +3,104 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+<!-- ===================== PRIMARY META ===================== -->
 <title>Nature's Best, Inc. | Missoula Valley Lawn Care & Landscaping</title>
-<meta name="description" content="Missoula company providing Landscape Design & Maintenance, Lawn Care, Organic Fertilizer and Weed Control.">
-<meta name="keywords" content="Lawn care, Landscaping, Missoula, Montana, Fertilizer, Weed Control, Irrigation, Snow Removal">
-
-<!-- Fonts & Icons -->
+<meta name="description" content="Missoula's trusted lawn care & landscaping company. Landscape design, organic fertilizer, weed control, irrigation & snow removal serving the Bitterroot Valley.">
+<meta name="keywords" content="lawn care, landscaping, Missoula, Montana, fertilizer, weed control, irrigation, snow removal, Bitterroot Valley, Lolo, Florence, Hamilton, Stevensville">
+<meta name="author" content="Nature's Best, Inc.">
+<meta name="robots" content="index, follow">
+<link 
+<!-- ===================== CANONICAL ===================== -->
+<!-- ⚠️ Change this URL on every page to match that page's exact URL -->
+<link rel="canonical" href="https://www.naturesbestinc.com/">
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<!-- ===================== OPEN GRAPH (Facebook, LinkedIn, iMessage) ===================== -->
+<meta property="og:type"         content="website">
+<meta property="og:site_name"    content="Nature's Best, Inc.">
+<meta property="og:title"        content="Nature's Best, Inc. | Missoula Valley Lawn Care & Landscaping">
+<meta property="og:description"  content="Missoula's trusted lawn care & landscaping company. Landscape design, organic fertilizer, weed control, irrigation & snow removal.">
+<meta property="og:url"          content="https://www.naturesbestinc.com/">
+<!-- ⚠️ Create a 1200×630px JPG hero image and host it here -->
+<meta property="og:image"        content="https://www.naturesbestinc.com/img/og-image.jpg">
+<meta property="og:image:width"  content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt"    content="Nature's Best lawn care crew working in Missoula, MT">
+<meta property="og:locale"       content="en_US">
+ 
+<!-- ===================== TWITTER / X CARD ===================== -->
+<meta name="twitter:card"        content="summary_large_image">
+<meta name="twitter:site"        content="@NaturesBestInc">
+<meta name="twitter:creator"     content="@NaturesBestInc">
+<meta name="twitter:title"       content="Nature's Best, Inc. | Missoula Valley Lawn Care">
+<meta name="twitter:description" content="Missoula's trusted lawn care & landscaping company. Serving the Bitterroot Valley since 1995.">
+<meta name="twitter:image"       content="https://www.naturesbestinc.com/img/og-image.jpg">
+<meta name="twitter:image:alt"   content="Nature's Best lawn care crew working in Missoula, MT">
+ 
+<!-- ===================== APPLE / IOS ===================== -->
+<meta name="apple-mobile-web-app-capable"           content="yes">
+<meta name="apple-mobile-web-app-status-bar-style"  content="default">
+<meta name="apple-mobile-web-app-title"             content="Nature's Best">
+<!-- ⚠️ Create a 180×180px PNG logo with no transparency -->
+<link rel="apple-touch-icon" href="favicon.png">
+<meta name="theme-color" content="#1A4373">
+ 
+<!-- ===================== GEO / LOCAL SEO ===================== -->
+<meta name="geo.region"    content="US-MT">
+<meta name="geo.placename" content="Missoula, Montana">
+<meta name="geo.position"  content="46.8584955;-114.0336491">
+<meta name="ICBM"          content="46.8584955, -114.0336491">
+ 
+<!-- ===================== SCHEMA.ORG — LOCAL BUSINESS (Google rich results) ===================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Nature's Best, Inc.",
+  "description": "Missoula's trusted lawn care & landscaping company serving the Bitterroot Valley since 1995.",
+  "url": "https://www.naturesbestinc.com",
+  "telephone": "+1-406-549-1196",
+  "email": "lori@naturesbestinc.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1175 Clark Fork Dr",
+    "addressLocality": "Missoula",
+    "addressRegion": "MT",
+    "postalCode": "59808",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 46.8584955,
+    "longitude": -114.0336491
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+      "opens": "08:00",
+      "closes": "17:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/NaturesBestInc",
+    "https://www.instagram.com/NaturesBestInc",
+    "https://twitter.com/NaturesBestInc"
+  ],
+  "image": "https://www.naturesbestinc.com/img/og-image.jpg",
+  "priceRange": "$$",
+  "areaServed": ["Missoula","Lolo","Florence","Hamilton","Stevensville","Bitterroot Valley"]
+}
+</script>
+ 
+<!-- ===================== FONTS & ICONS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+ 
 <!-- Leaflet CSS -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
+ 
 <style>
 /* ===================== RESET & BASE ===================== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -24,15 +110,14 @@ img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
 button{cursor:pointer;font-family:inherit;border:none;background:none}
-
-/* ===================== VARIABLES (NEW CALM BLUE PALETTE) ===================== */
+ 
+/* ===================== VARIABLES ===================== */
 :root{
-  --primary: #2C65A6; /* Calmer, professional blue */
-  --primary-dark: #1A4373; /* Deep navy blue */
-  --accent: #A9CAEF; /* Soft light blue */
-  --accent-dark: #8BB5E3; /* Hover state for Light Blue */
-  --primary-light: #F0F6FC; /* Lightest Blue */
-  
+  --primary: #2C65A6;
+  --primary-dark: #1A4373;
+  --accent: #A9CAEF;
+  --accent-dark: #8BB5E3;
+  --primary-light: #F0F6FC;
   --charcoal:#2C2C2C;
   --charcoal-light:#444;
   --body-dark:#1a1e2e;
@@ -47,19 +132,19 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   --max:1200px;
   --transition:0.28s cubic-bezier(.4,0,.2,1);
 }
-
+ 
 /* ===================== UTILITIES ===================== */
 .container{width:88%;max-width:var(--max);margin:0 auto}
 .sr-only{position:absolute;width:1px;height:1px;clip:rect(0,0,0,0);overflow:hidden}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s ease,transform .75s ease}
 .reveal.visible{opacity:1;transform:none}
-
+ 
 /* ===================== TYPOGRAPHY ===================== */
 h1,h2,h3,h4,h5,h6{font-family:'Rubik',sans-serif;line-height:1.15;color:var(--primary)}
 .section-label{font-family:'Open Sans',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary-dark);display:block;margin-bottom:.6rem}
 .section-title{font-family:'Rubik',sans-serif;font-size:clamp(1.8rem,3.5vw,2.75rem);font-weight:700;color:var(--primary);line-height:1.18}
 .section-title.white{color:#fff}
-
+ 
 /* ===================== BUTTONS ===================== */
 .btn{display:inline-flex;align-items:center;gap:.55rem;padding:.8em 1.7em;border-radius:var(--radius-sm);font-family:'Rubik',sans-serif;font-weight:600;font-size:.95rem;text-transform:uppercase;letter-spacing:.04em;transition:background var(--transition),color var(--transition),transform var(--transition),box-shadow var(--transition);cursor:pointer}
 .btn:active{transform:scale(.97)}
@@ -74,7 +159,7 @@ h1,h2,h3,h4,h5,h6{font-family:'Rubik',sans-serif;line-height:1.15;color:var(--pr
 .btn-white{background:#fff;color:var(--primary)}
 .btn-white:hover{background:var(--off-white);box-shadow:var(--shadow-md)}
 .btn i{font-size:1.1em;flex-shrink:0}
-
+ 
 /* ===================== HEADER ===================== */
 .site-header{position:sticky;top:0;z-index:9000;background:#fff;box-shadow:0 3px 25px rgba(0,0,0,.1)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:.6rem 0}
@@ -92,7 +177,7 @@ nav.main-nav a:hover{color:var(--primary);background:rgba(44,101,166,.08)}
 .burger{display:none;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:44px;height:44px;padding:0;border-radius:var(--radius-sm);transition:background var(--transition)}
 .burger:hover{background:var(--off-white)}
 .burger span{display:block;width:26px;height:3px;background:var(--primary);border-radius:3px;transition:transform .3s,opacity .3s}
-
+ 
 /* ===================== HERO ===================== */
 .hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden;background:var(--primary-dark)}
 .hero-bg{position:absolute;inset:0;background:
@@ -109,41 +194,14 @@ nav.main-nav a:hover{color:var(--primary);background:rgba(44,101,166,.08)}
 .proof-badge{display:flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-md);padding:.65rem 1rem}
 .proof-badge strong{color:#fff;font-family:'Rubik',sans-serif;font-size:1.05rem}
 .proof-badge span{color:rgba(255,255,255,.7);font-size:.82rem}
-
-/* Embedded Mountain Layering Effect */
-.hero-mountains{
-  position:absolute;
-  bottom:-1px; /* Avoid 1px rendering gap */
-  left:0;
-  right:0;
-  z-index:1;
-  line-height:0;
-  width:100%;
-  display: flex;
-  align-items: flex-end;
-  pointer-events: none;
-}
-.mountain-bg {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  transform: scale(1.05) translateY(-5%);
-  /* Light blue filter to simulate var(--accent) */
-  filter: brightness(0) invert(85%) sepia(10%) saturate(800%) hue-rotate(185deg) brightness(100%) contrast(95%);
-  opacity: 0.85;
-  z-index: 1;
-}
-.mountain-fg {
-  position: relative; /* Sets the natural height of the container */
-  width: 100%;
-  /* Pure white filter */
-  z-index: 2;
-  margin-bottom: -1px;
-}
-
+ 
+/* Mountain Layering Effect */
+.hero-mountains{position:absolute;bottom:-1px;left:0;right:0;z-index:1;line-height:0;width:100%;display:flex;align-items:flex-end;pointer-events:none}
+.mountain-bg{position:absolute;bottom:0;left:0;width:100%;transform:scale(1.05) translateY(-5%);filter:brightness(0) invert(85%) sepia(10%) saturate(800%) hue-rotate(185deg) brightness(100%) contrast(95%);opacity:0.85;z-index:1}
+.mountain-fg{position:relative;width:100%;z-index:2;margin-bottom:-1px}
+ 
 /* ===================== QUICK LINKS ===================== */
-.quick-links{padding:5rem 0 3rem; background: #fff;}
+.quick-links{padding:5rem 0 3rem;background:#fff;}
 .ql-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;max-width:var(--max);margin:0 auto;padding-top:2.5rem}
 .ql-card{display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.25rem;padding:3.5rem 2.5rem 2.5rem;border-radius:var(--radius-md);box-shadow:var(--shadow-md);position:relative;margin-top:1.5rem;transition:transform var(--transition),box-shadow var(--transition)}
 .ql-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-lg)}
@@ -163,12 +221,12 @@ nav.main-nav a:hover{color:var(--primary);background:rgba(44,101,166,.08)}
 .ql-card:nth-child(2) .ql-link{color:#fff}
 .ql-link i{font-size:12px;transition:transform var(--transition)}
 .ql-card:hover .ql-link i{transform:translateX(5px)}
-
+ 
 /* ===================== SECTIONS SHARED ===================== */
 section{padding:5.5rem 0}
 .section-header{text-align:center;margin-bottom:3.5rem}
 .section-header p{max-width:580px;margin:.8rem auto 0;color:var(--charcoal-light);font-size:1rem}
-
+ 
 /* ===================== SERVICES ===================== */
 .services{background:var(--off-white);position:relative}
 .services::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%232C65A6' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
@@ -189,7 +247,7 @@ section{padding:5.5rem 0}
 .service-card p{font-size:.88rem;color:var(--charcoal-light);line-height:1.55;flex:1}
 .service-learn{display:inline-flex;align-items:center;gap:.4rem;font-family:'Rubik',sans-serif;font-size:.85rem;font-weight:700;color:var(--primary-dark);margin-top:.9rem;transition:gap var(--transition)}
 .service-learn:hover{gap:.65rem}
-
+ 
 /* ===================== ABOUT ===================== */
 .about{background:#fff}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
@@ -207,12 +265,12 @@ section{padding:5.5rem 0}
 .feat-icon i{color:var(--primary-dark);font-size:15px}
 .about-feat span{font-weight:600;font-size:.95rem}
 .about-ctas{display:flex;flex-wrap:wrap;gap:.75rem}
-
+ 
 /* ===================== COMMITMENT ===================== */
 .guarantees{background:var(--primary);position:relative;overflow:hidden}
 .guarantees::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cpath d='M150 0 L300 150 L150 300 L0 150 Z' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='2'/%3E%3Ccircle cx='150' cy='150' r='100' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='2'/%3E%3C/svg%3E") center/cover}
 .guarantees .section-title{color:#fff;text-align:center;margin-bottom:.5rem}
-.guarantees .section-label{text-align:center; color: var(--accent);}
+.guarantees .section-label{text-align:center;color:var(--accent);}
 .guarantees .section-header p{color:rgba(255,255,255,.75)}
 .guarantee-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2.5rem}
 .guarantee-card{border-radius:var(--radius-md);padding:2.4rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(4px);display:flex;flex-direction:column;gap:1rem;transition:background var(--transition),border-color var(--transition),transform var(--transition)}
@@ -224,7 +282,7 @@ section{padding:5.5rem 0}
 .guar-ico i{color:var(--primary-dark);font-size:24px}
 .guarantee-card h3{font-size:1.35rem;font-weight:700;color:#fff}
 .guarantee-card p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.6}
-
+ 
 /* ===================== WHY CHOOSE US ===================== */
 .why{background:var(--off-white)}
 .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
@@ -234,7 +292,7 @@ section{padding:5.5rem 0}
 .why-ico i{color:var(--primary);font-size:22px}
 .why-card h3{font-size:1.05rem;font-weight:700;color:var(--primary);margin-bottom:.5rem}
 .why-card p{font-size:.9rem;color:var(--charcoal-light);line-height:1.6}
-
+ 
 /* ===================== TESTIMONIALS ===================== */
 .testimonials{background:#fff}
 .testi-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem}
@@ -256,22 +314,10 @@ section{padding:5.5rem 0}
 .review-text{font-size:.92rem;color:var(--charcoal-light);line-height:1.65;flex:1}
 .testi-controls{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-top:2rem}
 .testi-dots{display:flex;gap:.45rem;align-items:center}
-.testi-dot{
-  width:10px;height:10px;border-radius:50%;
-  background:rgba(44,101,166,.22);
-  border:none;padding:0;cursor:pointer;
-  transition:background .35s cubic-bezier(.4,0,.2,1),
-             width .35s cubic-bezier(.4,0,.2,1),
-             border-radius .35s cubic-bezier(.4,0,.2,1);
-  flex-shrink:0;
-}
-.testi-dot.active{
-  background:var(--primary);
-  width:28px;
-  border-radius:5px;
-}
-
-/* ===================== LOCATE US AREA ===================== */
+.testi-dot{width:10px;height:10px;border-radius:50%;background:rgba(44,101,166,.22);border:none;padding:0;cursor:pointer;transition:background .35s cubic-bezier(.4,0,.2,1),width .35s cubic-bezier(.4,0,.2,1),border-radius .35s cubic-bezier(.4,0,.2,1);flex-shrink:0}
+.testi-dot.active{background:var(--primary);width:28px;border-radius:5px}
+ 
+/* ===================== SERVICE AREA / MAP ===================== */
 .service-area-section{padding:6rem 0;background:var(--off-white);overflow:hidden}
 .sa-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .sa-map-wrap{position:relative;border-radius:var(--radius-md);overflow:hidden;height:500px;box-shadow:var(--shadow-md);background:#e5e3df}
@@ -281,26 +327,11 @@ section{padding:5.5rem 0}
 .sa-content p{color:var(--charcoal-light);font-size:1.05rem;margin-bottom:2rem;line-height:1.6}
 .sa-btn{background:var(--primary);color:#fff;border-radius:var(--radius-sm);padding:1.2rem 2.2rem;font-size:1rem;letter-spacing:.05em;display:inline-flex;justify-content:center;align-items:center;width:auto;font-family:'Rubik',sans-serif;font-weight:700;text-transform:uppercase;transition:background var(--transition);border:none}
 .sa-btn:hover{background:var(--primary-dark)}
-
-/* Custom Leaflet Marker */
-.sa-marker{
-  width:36px;height:36px;
-  background:var(--primary);
-  border:3px solid #fff;
-  border-radius:50% 50% 50% 0;
-  transform:rotate(-45deg);
-  box-shadow:0 4px 12px rgba(44,101,166,.45);
-  display:flex;align-items:center;justify-content:center;
-  position:relative;
-}
-.sa-marker i{
-  color:#fff;font-size:14px;
-  transform:rotate(45deg);
-  margin-top:-2px;margin-left:1px;
-}
+.sa-marker{width:36px;height:36px;background:var(--primary);border:3px solid #fff;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px rgba(44,101,166,.45);display:flex;align-items:center;justify-content:center;position:relative}
+.sa-marker i{color:#fff;font-size:14px;transform:rotate(45deg);margin-top:-2px;margin-left:1px}
 .leaflet-tooltip.map-label{background:#fff;border:none;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-family:'Rubik',sans-serif;font-weight:700;color:var(--charcoal);padding:5px 12px;margin-top:15px;font-size:.85rem;transition:transform .2s}
 .leaflet-tooltip-bottom:before{display:none}
-
+ 
 /* ===================== CTA BANNER ===================== */
 .cta-banner{background:var(--primary);position:relative;overflow:hidden;padding:4rem 0}
 .cta-banner::before{content:'';position:absolute;right:-80px;top:50%;transform:translateY(-50%);width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.06)}
@@ -309,7 +340,7 @@ section{padding:5.5rem 0}
 .cta-text h2{font-family:'Rubik',sans-serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:800;color:#fff;line-height:1.18;margin-bottom:.5rem}
 .cta-text p{color:rgba(255,255,255,.85);font-size:1rem;max-width:480px}
 .cta-actions{display:flex;gap:.75rem;flex-wrap:wrap;flex-shrink:0}
-
+ 
 /* ===================== FOOTER ===================== */
 .footer{background:var(--primary-dark);padding:4.5rem 0 0}
 .footer-grid{display:grid;grid-template-columns:250px 1fr 1fr 200px;gap:3.5rem;padding-bottom:3.5rem}
@@ -325,7 +356,7 @@ section{padding:5.5rem 0}
 .footer-contact a:hover{color:var(--accent)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.12);padding:1.4rem 0;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap}
 .footer-bottom p{color:rgba(255,255,255,.5);font-size:.82rem}
-
+ 
 /* ===================== MOBILE NAV ===================== */
 .mobile-nav{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:10000;opacity:0;pointer-events:none;transition:opacity .3s}
 .mobile-nav.open{opacity:1;pointer-events:all}
@@ -338,14 +369,12 @@ section{padding:5.5rem 0}
 .mobile-nav-links{padding:1rem 1.5rem 2rem;display:flex;flex-direction:column}
 .mobile-nav a{display:block;font-family:'Rubik',sans-serif;font-weight:600;color:rgba(255,255,255,.9);padding:.85rem 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:1rem;transition:color var(--transition),padding-left var(--transition)}
 .mobile-nav a:hover{color:var(--accent);padding-left:8px}
-
-.mobile-nav-group { margin-bottom: 0.5rem; }
-.mobile-nav-label { display: block; font-family: 'Rubik', sans-serif; font-weight: 700; color: var(--accent); padding: 1.2rem 0 0.2rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.mobile-nav-group a { padding: 0.6rem 0 0.6rem 1rem; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,.04); }
-
+.mobile-nav-group{margin-bottom:.5rem}
+.mobile-nav-label{display:block;font-family:'Rubik',sans-serif;font-weight:700;color:var(--accent);padding:1.2rem 0 0.2rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em}
+.mobile-nav-group a{padding:.6rem 0 .6rem 1rem;font-size:.95rem;border-bottom:1px solid rgba(255,255,255,.04)}
 .mobile-nav .mobile-ctas{margin-top:2rem;display:flex;flex-direction:column;gap:.8rem}
 .mobile-nav .mobile-ctas .btn{justify-content:center;text-align:center}
-
+ 
 /* ===================== RESPONSIVE ===================== */
 @media(max-width:1100px){
   nav.main-nav,.header-ctas .btn-secondary{display:none}
